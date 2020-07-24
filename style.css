@@ -1,0 +1,51 @@
+	* {
+    Box-sizing: border box;
+    Font-size: 100%;
+    Margin: 0;
+    Padding: 0;
+    Position: relative; 
+    }
+.display-4 {
+    text-align: center;
+    
+}    
+.container {
+    height: 40px;
+}
+.container-fluid {
+    float: left;
+}
+
+#searchBtn {
+    background: #2196F3;
+    color: white;
+}
+
+.weatherContainer-fluid {
+    float: left;
+}
+
+#cityWeather {
+    border: 1px;
+    border-style: solid;
+}
+
+.clearfix {
+    overflow: auto;
+}
+
+.low {
+    background-color: green;
+}
+
+.moderate {
+    background-color: yellow;
+}
+
+.high {
+    background-color: orange;
+}
+
+.veryHigh {
+    background-color: red;
+}
