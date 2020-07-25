@@ -7,10 +7,11 @@
     }
 .display-4 {
     text-align: center;
-    
 }    
 .container {
-    height: 40px;
+    height: 100px;
+    margin: auto;
+ 
 }
 .container-fluid {
     float: left;
@@ -34,18 +35,8 @@
     overflow: auto;
 }
 
-.low {
-    background-color: green;
-}
-
-.moderate {
-    background-color: yellow;
-}
-
-.high {
-    background-color: orange;
-}
-
-.veryHigh {
-    background-color: red;
+img {
+    border-radius: 3px;
+    width: 75px;
+    float: left;
 }
