@@ -15,6 +15,7 @@
 }
 .container-fluid {
     float: left;
+    
 }
 
 #searchBtn {
@@ -29,6 +30,7 @@
 #cityWeather {
     border: 1px;
     border-style: solid;
+    padding: 5px;
 }
 
 .clearfix {
@@ -38,5 +40,28 @@
 img {
     border-radius: 3px;
     width: 75px;
-    float: left;
+}
+
+.fiveDay h3 {
+    margin-top: 10px;
+}
+
+.fiveSpan {
+    display: inline-block;
+    border: 1px;
+    border-style: solid;
+    margin: 5px;
+    text-align: center;
+    width: 18%;
+}
+
+.fiveDayCard {
+    padding: 10px;
+}
+
+.historyBtn {
+    border: 1px;
+    border-style: solid;
+    margin-top: 5px;
+    width: 73%;
 }

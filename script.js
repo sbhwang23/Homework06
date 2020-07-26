@@ -1,18 +1,35 @@
 $(document).ready(function() {
     const cityContainer = $('#cityWeather');
-    let cities = $(this).attr('data-name');
-
+    const recentSearches = $('#recentSearches')
     $('#searchBtn').on('click', function(event){
         event.preventDefault();
         cityContainer.empty();
+
         let city = $('#cityInput').val().trim();
-        localStorage.setItem('searchHistory', JSON.stringify(city));
+        let storedCity = [];
+        storedCity.push(city);
+        localStorage.setItem('searchHistory', JSON.stringify(storedCity));
+
         searchWeather(city);
+        fiveDay(city);
+        rendersearchHistory(city);
     })
 
-function searchWeather(cityName) {
+function rendersearchHistory () {
+    let searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+
+    for (let i = 0; i < searchHistory.length; i++) {
+        
+        let searchHistoryEL = $('<button>').text(searchHistory);
+        searchHistoryEL.addClass('historyBtn');
+        recentSearches.prepend(searchHistoryEL);
+        
+    }
+}
+
+function searchWeather(city) {
     // var weather = $(this).attr("data-name");
-    let queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=imperial&appid=ab1f8fef34f0e489ad088b4507c416a5'
+    let queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=ab1f8fef34f0e489ad088b4507c416a5';
 
     $.ajax({
     url: queryURL,
@@ -21,13 +38,14 @@ function searchWeather(cityName) {
         
         let date = moment().format('MM/DD/YYYY');
         let city = $('<h2>').text(response.name);
+        let mainDate = city.append(' ' + date) 
         let iconimg = $("<img>").attr('src', 'https://openweathermap.org/img/wn/' + response.weather[0].icon + '@2x.png');
-        let temperature = $('<p>').text(`Temperature: ${response.main.temp.toFixed(0)}`);
-        let humidity = $('<p>').text(`Humidity: ${response.main.humidity}`);
-        let windSpeed = $('<p>').text(`Wind Speed: ${response.wind.speed}`);
+        let temperature = $('<p>').text(`Temperature: ${response.main.temp.toFixed(0)}\xB0F`);
+        let humidity = $('<p>').text(`Humidity: ${response.main.humidity}%`);
+        let windSpeed = $('<p>').text(`Wind Speed: ${response.wind.speed} MPH`);
         
-        
-        cityContainer.append(city, iconimg, date, temperature, humidity, windSpeed);
+        cityContainer.append(mainDate)
+        cityContainer.append(iconimg, temperature, humidity, windSpeed);
     
     let uvURL = 'http://api.openweathermap.org/data/2.5/uvi?appid=ab1f8fef34f0e489ad088b4507c416a5&lat=' + response.coord.lat + '&lon=' + response.coord.lon;
 
@@ -47,18 +65,40 @@ function searchWeather(cityName) {
         if (uvIndex >= 6 || uvIndex <=7) {
             uvElement.css('background-color', 'orange')
         }  
-        if (uvIndex >8) {
+        if (uvIndex > 8) {
             uvElement.css('background-color', 'red')
-        }
+        };
             
         cityContainer.append(uvElement);
         
     })
-    
     });
+};
+
+function fiveDay(city) {
+    let fivedayURL = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&units=imperial&appid=ab1f8fef34f0e489ad088b4507c416a5';
+
+    let fiveDayEL = $('#fiveDayCard');
+    $.ajax({
+        url: fivedayURL,
+        method: 'GET'
+    }).then(function(response) {
+        
+        fiveDayEL.empty();
+        for (let i = 0; i < 5; i++) {
+            let fivedaySpan = $('<span class= fiveSpan>')
+            let fiveDate = $('<p>').text(`${response.list[i * 8 + 4].dt_txt.slice(0, 10)}`);
+            let fiveTemp = $('<p>').text(`Temperature: ${response.list[i * 8 + 4].main.temp.toFixed(0)}\xB0F`);
+            let fiveHumidity = $('<p>').text(`Humidity: ${response.list[i * 8 + 4].main.temp.toFixed(0)}%`);
+            let fiveIcon = $("<img>").attr('src', 'https://openweathermap.org/img/wn/' + response.list[i * 8 + 4].weather[0].icon + '.png');
+    
+            fivedaySpan.append(fiveDate, fiveIcon, fiveTemp, fiveHumidity);
+            fiveDayEL.append(fivedaySpan);
+            
+        }
+    });
+};
       
 
 
-    
-}
-})
+});
