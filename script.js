@@ -1,31 +1,50 @@
 $(document).ready(function() {
     const cityContainer = $('#cityWeather');
-    const recentSearches = $('#recentSearches')
+    const recentSearches = $('#recentSearches');
+   
+rendersearchHistory();
+
     $('#searchBtn').on('click', function(event){
         event.preventDefault();
         cityContainer.empty();
 
         let city = $('#cityInput').val().trim();
-        let storedCity = [];
-        storedCity.push(city);
-        localStorage.setItem('searchHistory', JSON.stringify(storedCity));
-
         searchWeather(city);
         fiveDay(city);
+
+        let storedCity = [];
+        storedCity.push(city);
+       
+        
+        localStorage.setItem('searchHistory', JSON.stringify(storedCity));
+         $('#cityInput').val('');
         rendersearchHistory(city);
     })
 
 function rendersearchHistory () {
-    let searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+    let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    
 
     for (let i = 0; i < searchHistory.length; i++) {
         
-        let searchHistoryEL = $('<button>').text(searchHistory);
+        let searchHistoryEL = $('<button id="previousBtn">').text(searchHistory[i]).val(searchHistory[i]);
         searchHistoryEL.addClass('historyBtn');
+
+       
         recentSearches.prepend(searchHistoryEL);
-        
-    }
+    };
 }
+
+    $('#previousBtn').on('click', function(event) {
+        event.preventDefault();
+       
+        let city = event.target.value;
+        
+        searchWeather(city);
+        fiveDay(city);
+        cityContainer.empty();
+    });
+
 
 function searchWeather(city) {
     // var weather = $(this).attr("data-name");
@@ -94,11 +113,9 @@ function fiveDay(city) {
     
             fivedaySpan.append(fiveDate, fiveIcon, fiveTemp, fiveHumidity);
             fiveDayEL.append(fivedaySpan);
-            
+
         }
     });
 };
       
-
-
 });
