@@ -1,6 +1,7 @@
 $(document).ready(function() {
     const cityContainer = $('#cityWeather');
     const recentSearches = $('#recentSearches');
+    let fiveDayEL = $('#fiveDayCard');
     let storedCity = [];
 
 rendersearchHistory();
@@ -96,7 +97,7 @@ function searchWeather(city) {
 function fiveDay(city) {
     let fivedayURL = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&units=imperial&appid=ab1f8fef34f0e489ad088b4507c416a5';
 
-    let fiveDayEL = $('#fiveDayCard');
+   
     $.ajax({
         url: fivedayURL,
         method: 'GET'

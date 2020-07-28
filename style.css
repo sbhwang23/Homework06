@@ -5,22 +5,30 @@
     Padding: 0;
     Position: relative; 
     }
-.display-4 {
-    text-align: center;
-}    
+
 .container {
     height: 100px;
     margin: auto;
- 
 }
+
+.display-4 {
+    text-align: center;
+}    
+
 .container-fluid {
     float: left;
-    
 }
 
 #searchBtn {
     background: #2196F3;
     color: white;
+}
+
+.historyBtn {
+    border: 1px;
+    border-style: solid;
+    margin-top: 5px;
+    width: 73%;
 }
 
 .weatherContainer-fluid {
@@ -31,15 +39,15 @@
     border: 1px;
     border-style: solid;
     padding: 5px;
+    width: 95%;
 }
 
 .clearfix {
     overflow: auto;
 }
 
-img {
-    border-radius: 3px;
-    width: 75px;
+.fiveDayCard {
+    padding: 10px;
 }
 
 .fiveDay h3 {
@@ -47,21 +55,15 @@ img {
 }
 
 .fiveSpan {
-    display: inline-block;
     border: 1px;
     border-style: solid;
+    display: inline-block;
     margin: 5px;
     text-align: center;
     width: 18%;
 }
 
-.fiveDayCard {
-    padding: 10px;
-}
-
-.historyBtn {
-    border: 1px;
-    border-style: solid;
-    margin-top: 5px;
-    width: 73%;
+img {
+    border-radius: 3px;
+    width: 75px;
 }
