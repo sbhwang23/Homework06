@@ -2,4 +2,4 @@ When a user enters a city into the search box, the current weather and a five-da
 When a city is searched, a button with the name of the city will be created below the search bar. The user is able to click on the buttons to display the weather information again for that city. 
 
 [Weather Dashboard](https://sbhwang23.github.io/Homework06/)
-![](weatherDashboardScreenShot.png)
+![](weatherDashboardScreenshot.png)
