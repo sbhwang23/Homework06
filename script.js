@@ -1,7 +1,8 @@
 $(document).ready(function() {
     const cityContainer = $('#cityWeather');
     const recentSearches = $('#recentSearches');
-   
+    let storedCity = [];
+
 rendersearchHistory();
 
     $('#searchBtn').on('click', function(event){
@@ -12,10 +13,8 @@ rendersearchHistory();
         searchWeather(city);
         fiveDay(city);
 
-        let storedCity = [];
         storedCity.push(city);
        
-        
         localStorage.setItem('searchHistory', JSON.stringify(storedCity));
          $('#cityInput').val('');
         rendersearchHistory(city);
@@ -23,7 +22,7 @@ rendersearchHistory();
 
 function rendersearchHistory () {
     let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-    
+    recentSearches.empty();
 
     for (let i = 0; i < searchHistory.length; i++) {
         
@@ -35,7 +34,7 @@ function rendersearchHistory () {
     };
 }
 
-    $('#previousBtn').on('click', function(event) {
+    $('#recentSearches').on('click', 'button', function(event) {
         event.preventDefault();
        
         let city = event.target.value;
